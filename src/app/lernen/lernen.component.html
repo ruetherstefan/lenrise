@@ -1,10 +1,21 @@
 <p>
-  lernen works!
+  Lernen
 </p>
 
 
 <div class="page-header">
-  <h1>Musik</h1>
+  <h1 *ngIf="istInLernenModus()">{{gibAktuelleVokabel().name}}</h1>
+  <h1 *ngIf="istInWiederholenModus()">???</h1>
 </div>
+
 <button type="button" class="btn btn-lg btn-success" (click)="musicPlay()">Play</button>
 <button type="button" class="btn btn-lg btn-success" (click)="musicPause()">Pause</button>
+<button type="button" class="btn btn-lg btn-success" (click)="weiter()">Weiter</button>
+
+<p></p>
+<input type="text" class="form-control" *ngIf="istInWiederholenModus()" [(ngModel)]="vokabel_eingabe">
+<div class="alert alert-success" role="alert" *ngIf="warRichtig">Richtig</div>
+<div class="alert alert-warning" role="alert" *ngIf="warFalsch">Falsch</div>
+
+<p>{{lernplan.einheiten.length - aktuelle_lerneinheit}}</p>
+<p *ngIf="false">{{gibAktuelleVokabel().name}}</p>

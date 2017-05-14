@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AlertModule } from 'ng2-bootstrap';
 import {BibliothekService} from './lernen/bibliothek.service'
+import { LocalStorageModule } from 'angular-2-local-storage';
 
 
 import { AppComponent } from './app.component';
@@ -26,7 +27,11 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    LocalStorageModule.withConfig({
+            prefix: 'lenrise',
+            storageType: 'localStorage'
+        })
   ],
   providers: [BibliothekService],
   bootstrap: [AppComponent]

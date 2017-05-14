@@ -48,6 +48,17 @@ export class VokabelboxService {
 export class Lernplan {
   public einheiten : Lerneinheit[] = [];
 
+  enthalteneVokabeln() : Vokabel[]{
+    let vokabeln : Vokabel[] = [];
+
+    for(let lerneinheit of this.einheiten){
+      if (vokabeln.indexOf(lerneinheit.vokabel) == -1) {
+        vokabeln = vokabeln.concat(lerneinheit.vokabel);
+      }
+    }
+    return vokabeln;
+  }
+
   log(){
     console.log("lerneinheit")
     for(let lerneinheit  of this.einheiten){
@@ -56,6 +67,7 @@ export class Lernplan {
     console.log("")
   }
 }
+
 
 export class Lerneinheit {
 
@@ -67,6 +79,7 @@ export class Lerneinheit {
     this.vokabel = vokabel;
   }
 }
+
 
 export enum Lernart {
   Anschauen,

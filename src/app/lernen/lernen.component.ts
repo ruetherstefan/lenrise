@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import {Vokabel} from '../lernen/bibliothek.service'
 import {VokabelboxService, Lernplan, Lerneinheit, Lernart} from '../lernen/vokabelbox.service'
-import { Router } from '@angular/router';
+import {GehirnService} from '../persistence/gehirn.service'
 
 @Component({
   selector: 'lenrise-lernen',
   templateUrl: './lernen.component.html',
   styleUrls: ['./lernen.component.css'],
-  providers:    [ VokabelboxService ]
+  providers:    [ VokabelboxService, GehirnService ]
 })
 export class LernenComponent implements OnInit {
 
   constructor(private vokabelboxService : VokabelboxService,
-              private router: Router) {}
+              private router: Router,
+              private gehirnService : GehirnService) {}
 
   audio : HTMLAudioElement;
   lernplan : Lernplan;
@@ -66,6 +69,7 @@ export class LernenComponent implements OnInit {
     }
     this.aktuelle_lerneinheit += 1;
     if(this.aktuelle_lerneinheit >= this.lernplan.einheiten.length){
+        this.gehirnService.speichereLernen(this.lernplan);
         this.router.navigateByUrl("/");
         return;
     }

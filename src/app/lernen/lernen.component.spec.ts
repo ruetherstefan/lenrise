@@ -4,13 +4,16 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'angular-2-local-storage';
 
 import {LernenComponent } from './lernen.component';
 import {Vokabel, BibliothekService} from './bibliothek.service'
 import {Lernplan, Lerneinheit, Lernart} from '../lernen/vokabelbox.service';
+import {GehirnService} from '../persistence/gehirn.service'
+import {LocalStorageServiceStub} from '../persistence/gehirn.service.spec'
 
 
-fdescribe('LernenComponent', () => {
+describe('LernenComponent', () => {
   let component: LernenComponent;
   let fixture: ComponentFixture<LernenComponent>;
 
@@ -19,6 +22,8 @@ fdescribe('LernenComponent', () => {
       declarations: [ LernenComponent ],
       imports: [ FormsModule ],
       providers: [BibliothekService,
+                  GehirnService, 
+      {provide: LocalStorageService, useClass: LocalStorageServiceStub },
       { provide: Router, useClass: RouterStub }
       ]
     })

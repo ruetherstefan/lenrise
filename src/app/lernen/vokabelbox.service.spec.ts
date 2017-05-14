@@ -42,4 +42,10 @@ describe('VokabelboxService', () => {
     expect(lernplan.einheiten[0].vokabel).toEqual(voegel[0]); //Bibliothek Service mocken
   });
 
+
+  it('should Set der vokabeln geben - Lernplan', () => {
+    let lernplan : Lernplan = this.underTest.erstelleLernplan(2);
+
+    expect(lernplan.enthalteneVokabeln().length).toEqual(2);
+  });
 });

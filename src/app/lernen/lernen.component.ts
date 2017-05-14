@@ -56,7 +56,9 @@ export class LernenComponent implements OnInit {
         this.warFalsch = true;
         setTimeout(() => {this.warFalsch = false}, 2000);
         
-        this.lernplan.einheiten = this.lernplan.einheiten.concat(this.gibAktuelleLerneinheit()); 
+        this.lernplan.einheiten = this.lernplan.einheiten.concat(this.gibAktuelleLerneinheit());
+        let aktuelle_lerneinheit_zum_anschauen : Lerneinheit =  new Lerneinheit(this.gibAktuelleLerneinheit().vokabel, Lernart.Anschauen)
+        this.lernplan.einheiten.splice(this.aktuelle_lerneinheit + 1, 0, aktuelle_lerneinheit_zum_anschauen);
       }
 
     }

@@ -60,6 +60,7 @@ export class LernenComponent implements OnInit {
       }
 
     }
+    this.vokabel_eingabe = "";
 
     this.aktuelle_lerneinheit += 1;
     this.spieleAktuelleVokabel();

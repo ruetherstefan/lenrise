@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Vokabel} from '../lernen/bibliothek.service'
 import {VokabelboxService, Lernplan, Lerneinheit, Lernart} from '../lernen/vokabelbox.service'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lenrise-lernen',
@@ -10,8 +11,8 @@ import {VokabelboxService, Lernplan, Lerneinheit, Lernart} from '../lernen/vokab
 })
 export class LernenComponent implements OnInit {
 
-  //constructor(private bibliothekService : BibliothekService) {}
-  constructor(private vokabelboxService : VokabelboxService) {}
+  constructor(private vokabelboxService : VokabelboxService,
+              private router: Router) {}
 
   audio : HTMLAudioElement;
   lernplan : Lernplan;
@@ -52,6 +53,7 @@ export class LernenComponent implements OnInit {
       if(this.vokabel_eingabe == this.gibAktuelleVokabel().name){
         this.warRichtig = true;
         setTimeout(() => {this.warRichtig = false}, 2000);
+        
       }else{
         this.warFalsch = true;
         setTimeout(() => {this.warFalsch = false}, 2000);
@@ -62,9 +64,13 @@ export class LernenComponent implements OnInit {
       }
 
     }
-    this.vokabel_eingabe = "";
-
     this.aktuelle_lerneinheit += 1;
+    if(this.aktuelle_lerneinheit >= this.lernplan.einheiten.length){
+        this.router.navigateByUrl("/");
+        return;
+    }
+
+    this.vokabel_eingabe = "";
     this.spieleAktuelleVokabel();
   }
 

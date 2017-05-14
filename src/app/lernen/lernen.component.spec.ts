@@ -1,15 +1,16 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import {LernenComponent } from './lernen.component';
 import {Vokabel, BibliothekService} from './bibliothek.service'
 import {Lernplan, Lerneinheit, Lernart} from '../lernen/vokabelbox.service';
 
 
-describe('LernenComponent', () => {
+fdescribe('LernenComponent', () => {
   let component: LernenComponent;
   let fixture: ComponentFixture<LernenComponent>;
 
@@ -17,7 +18,9 @@ describe('LernenComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ LernenComponent ],
       imports: [ FormsModule ],
-      providers: [BibliothekService]
+      providers: [BibliothekService,
+      { provide: Router, useClass: RouterStub }
+      ]
     })
     .compileComponents();
   }));
@@ -67,5 +70,28 @@ describe('LernenComponent', () => {
     let naechste_lerneinheit = component.lernplan.einheiten[1];
     expect(naechste_lerneinheit).toEqual(new Lerneinheit(aktuelle_lerneinheit.vokabel, Lernart.Anschauen));
   });
+
+
+  it('should zum Hauptmenu navigieren wenn fertig',
+    inject([Router], (router: Router) => {
+
+    //wenn
+    const spy = spyOn(router, 'navigateByUrl');
+
+    let aktuelle_lerneinheit = new Lerneinheit(new Vokabel("richtig", "y"), Lernart.Wiederholen);
+    component.lernplan.einheiten = [aktuelle_lerneinheit];
+    component.vokabel_eingabe = "richtig";
+
+    //do
+    component.weiter();
+
+    //verify
+    const navArgs = spy.calls.first().args[0];
+    expect(navArgs).toBe('/', 'zum Hauptmenu navigieren ');
+  }));
+
+  class RouterStub {
+    navigateByUrl(url: string) { return url; }
+  }
 
 });

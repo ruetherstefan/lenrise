@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {Erinnerung, Lernstufe} from '../persistence/gehirn.service'
 
 
 @Injectable()
@@ -245,6 +246,7 @@ export class Vokabel {
 
   name : string;
   pfad : string;
+  erinnerung : Erinnerung;
 
 constructor(name : string, pfad : string) {
         this.name = name;
@@ -253,6 +255,20 @@ constructor(name : string, pfad : string) {
 
   adresse () : string{
     return "../assets/" + this.pfad;
+  }
+
+  istGelernt() : boolean {
+    if(undefined == this.erinnerung){
+      return false;
+    }
+    return Lernstufe.Ganz == this.erinnerung.lernstufe; 
+  }
+
+  istHalbGelernt() : boolean {
+    if(undefined == this.erinnerung){
+      return false;
+    }
+    return Lernstufe.Halb == this.erinnerung.lernstufe; 
   }
 
 }

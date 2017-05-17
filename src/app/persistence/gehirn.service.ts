@@ -14,10 +14,20 @@ export class GehirnService {
     for(let vokabel of lernplan.enthalteneVokabeln()){
       let erinnerung : Erinnerung = new Erinnerung(vokabel.name, new Date());
       
-      this.localStorageService.set(erinnerung.vokabelname, erinnerung);
+      this.localStorageService.set(vokabel.name, erinnerung);
     }
 
     //console.log(Erinnerung.parse(this.localStorageService.get("erinnerungen")));
+  }
+
+  ladeErinnerung(name : string) : Erinnerung{
+    let loaded = this.localStorageService.get(name);
+    console.log(loaded)
+    if(undefined != loaded){
+      return Erinnerung.parse(loaded);
+    }
+
+    return null;
   }
 
 }

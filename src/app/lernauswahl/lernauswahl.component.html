@@ -1,0 +1,25 @@
+<p>
+  Lernauswahl
+</p>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Lernstatus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let vokabel of vokabeln">
+      <td>{{vokabel.name}}</td>
+      <td>
+        <span class="glyphicon glyphicon-star-empty" aria-hidden="true" *ngIf="vokabel.istHalbGelernt()"></span>
+        <span class="glyphicon glyphicon-star" aria-hidden="true" *ngIf="vokabel.istGelernt()"></span>
+      </td>
+      <td>
+        <button type="button" class="btn btn-default">Auswählen</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

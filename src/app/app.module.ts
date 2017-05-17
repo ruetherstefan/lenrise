@@ -11,9 +11,12 @@ import { AppComponent } from './app.component';
 import { LernenComponent } from './lernen/lernen.component';
 import { HauptmenuComponent } from './hauptmenu/hauptmenu.component';
 import { Routes, RouterModule } from '@angular/router';
+import { LernauswahlComponent } from './lernauswahl/lernauswahl.component';
+import {GehirnService} from './persistence/gehirn.service'
 
 const appRoutes: Routes = [
   { path: 'lernen', component: LernenComponent},
+  { path: 'lernauswahl', component: LernauswahlComponent},
   { path: '',      component: HauptmenuComponent },
 ];
 
@@ -21,7 +24,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LernenComponent,
-    HauptmenuComponent
+    HauptmenuComponent,
+    LernauswahlComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,7 @@ const appRoutes: Routes = [
             storageType: 'localStorage'
         })
   ],
-  providers: [BibliothekService],
+  providers: [BibliothekService, GehirnService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

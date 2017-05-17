@@ -15,7 +15,7 @@ import { LernauswahlComponent } from './lernauswahl/lernauswahl.component';
 import {GehirnService} from './persistence/gehirn.service'
 
 const appRoutes: Routes = [
-  { path: 'lernen', component: LernenComponent},
+  { path: 'lernen/:vokabeln', component: LernenComponent},
   { path: 'lernauswahl', component: LernauswahlComponent},
   { path: '',      component: HauptmenuComponent },
 ];

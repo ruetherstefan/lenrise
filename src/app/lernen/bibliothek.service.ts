@@ -62,7 +62,7 @@ export class BibliothekService {
       new Vokabel("Feldlerche","01 Feldlerche.m4a"),
 
       
-      new Vokabel("Kohlmeise","01 Kohlmeise.m4a"),
+   /*   new Vokabel("Kohlmeise","01 Kohlmeise.m4a"),
       new Vokabel("Blaumeise","02 Blaumeise.m4a"),
       new Vokabel("Heidelerche","02 Heidelerche.m4a"),
       new Vokabel("Haubenlerche","03 Haubenlerche.m4a"),
@@ -238,6 +238,7 @@ export class BibliothekService {
       new Vokabel("Wendehals","90 Wendehals.m4a"),
       new Vokabel("Kuckkuck","91 Kuckkuck.m4a"),
       new Vokabel("Ziegenmelker","92 Ziegenmelker.m4a")
+      */
     ];
   }
 }

@@ -26,17 +26,17 @@ describe('VokabelboxService', () => {
   });
 
   it('should Lernplan berechnen', () => {
-    let lernplan : Lernplan = this.underTest.erstelleLernplan(5);
+    let lernplan : Lernplan = this.underTest.erstelleLernplanAnzahl(5);
     expect(lernplan).toBeTruthy();
   });
 
   it('should verschachtelten Lernplan berechnen - Anzahl', () => {
-    let lernplan : Lernplan = this.underTest.erstelleLernplan(2);
+    let lernplan : Lernplan = this.underTest.erstelleLernplanAnzahl(2);
     expect(lernplan.einheiten.length).toEqual(8);
   });
 
   it('should verschachtelten Lernplan berechnen - beginnt mit Anschauen', () => {
-    let lernplan : Lernplan = this.underTest.erstelleLernplan(2);
+    let lernplan : Lernplan = this.underTest.erstelleLernplanAnzahl(2);
 
     expect(lernplan.einheiten[0].lernart).toEqual(Lernart.Anschauen);
     expect(lernplan.einheiten[0].vokabel).toEqual(voegel[0]); //Bibliothek Service mocken
@@ -44,7 +44,7 @@ describe('VokabelboxService', () => {
 
 
   it('should Set der vokabeln geben - Lernplan', () => {
-    let lernplan : Lernplan = this.underTest.erstelleLernplan(2);
+    let lernplan : Lernplan = this.underTest.erstelleLernplanAnzahl(2);
 
     expect(lernplan.enthalteneVokabeln().length).toEqual(2);
   });

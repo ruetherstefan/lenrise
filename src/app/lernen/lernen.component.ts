@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import {Vokabel} from '../lernen/bibliothek.service'
+import {Vokabel, BibliothekService} from '../lernen/bibliothek.service'
 import {VokabelboxService, Lernplan, Lerneinheit, Lernart} from '../lernen/vokabelbox.service'
 import {GehirnService} from '../persistence/gehirn.service'
 
@@ -14,8 +14,10 @@ import {GehirnService} from '../persistence/gehirn.service'
 export class LernenComponent implements OnInit {
 
   constructor(private vokabelboxService : VokabelboxService,
+              private gehirnService : GehirnService,
+              private bibliothekService : BibliothekService,
               private router: Router,
-              private gehirnService : GehirnService) {}
+              private route: ActivatedRoute) {}
 
   audio : HTMLAudioElement;
   lernplan : Lernplan;
@@ -26,13 +28,21 @@ export class LernenComponent implements OnInit {
   vokabel_eingabe : string = "";
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      let param : string = params['vokabeln'];
+      let vokabeln_array = param.split(",").map(name => {
+        return this.bibliothekService.gibVoegel().filter(vokabel => vokabel.name == name)
+      });
 
-    this.lernplan = this.vokabelboxService.erstelleLernplan(5);
-    let lern : Vokabel = this.lernplan.einheiten[0].vokabel;
+      let vokabeln : Vokabel[] = [].concat.apply([], vokabeln_array);
+
+      this.lernplan = this.vokabelboxService.erstelleLernplan(vokabeln);
+
+      this.audio = new Audio();
+      this.spieleAktuelleVokabel();
+    });
+
     
-
-    this.audio = new Audio();
-    this.spieleAktuelleVokabel();
   }
 
   gibAktuelleLerneinheit() : Lerneinheit {

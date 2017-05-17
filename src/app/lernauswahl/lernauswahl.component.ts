@@ -24,4 +24,8 @@ export class LernauswahlComponent implements OnInit {
     }
   }
 
+  auswaehlen(vokabel: Vokabel) {
+    vokabel.istSelektiert = ! vokabel.istSelektiert;
+  }
+
 }

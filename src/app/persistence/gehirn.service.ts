@@ -22,7 +22,6 @@ export class GehirnService {
 
   ladeErinnerung(name : string) : Erinnerung{
     let loaded = this.localStorageService.get(name);
-    console.log(loaded)
     if(undefined != loaded){
       return Erinnerung.parse(loaded);
     }

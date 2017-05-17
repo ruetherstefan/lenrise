@@ -247,6 +247,7 @@ export class Vokabel {
   name : string;
   pfad : string;
   erinnerung : Erinnerung;
+  istSelektiert : boolean = false;
 
 constructor(name : string, pfad : string) {
         this.name = name;

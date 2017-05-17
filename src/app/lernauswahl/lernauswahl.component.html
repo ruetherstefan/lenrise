@@ -18,7 +18,7 @@
         <span class="glyphicon glyphicon-star" aria-hidden="true" *ngIf="vokabel.istGelernt()"></span>
       </td>
       <td>
-        <button type="button" class="btn btn-default">Auswählen</button>
+        <button type="button" [ngClass]="{'btn-success': vokabel.istSelektiert, 'btn-default': !vokabel.istSelektiert, 'btn': true}" (click)="auswaehlen(vokabel)">Auswählen</button>
       </td>
     </tr>
   </tbody>

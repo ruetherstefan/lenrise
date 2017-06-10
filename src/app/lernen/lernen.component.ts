@@ -92,6 +92,14 @@ export class LernenComponent implements OnInit {
     this.audio.src = this.gibAktuelleLerneinheit().vokabel.adresse();
     this.audio.load();
     this.audio.play(); 
+
+    this.audio.onloadedmetadata = function() {
+      let audio : HTMLAudioElement = this as HTMLAudioElement;
+
+      let start_time : number = Math.floor(Math.random() * audio.duration * 2/3);
+      audio.currentTime = start_time;
+
+    };
   }
 
   musicPlay() {

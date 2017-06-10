@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import {HostListener } from '@angular/core'
 
 import {Vokabel, BibliothekService} from '../lernen/bibliothek.service'
 import {VokabelboxService, Lernplan, Lerneinheit, Lernart} from '../lernen/vokabelbox.service'
@@ -43,6 +44,14 @@ export class LernenComponent implements OnInit {
     });
 
     
+  }
+
+ @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) { 
+    //Enter
+    if(13 == event.keyCode){
+      this.weiter();
+    }
   }
 
   gibAktuelleLerneinheit() : Lerneinheit {
@@ -91,6 +100,7 @@ export class LernenComponent implements OnInit {
   spieleAktuelleVokabel() {
     this.audio.src = this.gibAktuelleLerneinheit().vokabel.adresse();
     this.audio.load();
+    this.audio.loop = true;
     this.audio.play(); 
 
     this.audio.onloadedmetadata = function() {

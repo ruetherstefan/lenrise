@@ -12,7 +12,8 @@ import { LernenComponent } from './lernen/lernen.component';
 import { HauptmenuComponent } from './hauptmenu/hauptmenu.component';
 import { Routes, RouterModule } from '@angular/router';
 import { LernauswahlComponent } from './lernauswahl/lernauswahl.component';
-import {GehirnService} from './persistence/gehirn.service'
+import {GehirnService} from './persistence/gehirn.service';
+import { FocusDirective } from './lernen/focus.directive'
 
 const appRoutes: Routes = [
   { path: 'lernen/:vokabeln', component: LernenComponent},
@@ -25,7 +26,8 @@ const appRoutes: Routes = [
     AppComponent,
     LernenComponent,
     HauptmenuComponent,
-    LernauswahlComponent
+    LernauswahlComponent,
+    FocusDirective
   ],
   imports: [
     BrowserModule,

@@ -13,7 +13,7 @@
 <button type="button" class="btn btn-lg btn-success" (click)="weiter()">Weiter</button>
 
 <p></p>
-<input type="text" class="form-control" *ngIf="istInWiederholenModus()" [(ngModel)]="vokabel_eingabe">
+<input type="text" class="form-control" lenriseFocus *ngIf="istInWiederholenModus()" [(ngModel)]="vokabel_eingabe">
 <div class="alert alert-success" role="alert" *ngIf="warRichtig">Richtig</div>
 <div class="alert alert-warning" role="alert" *ngIf="warFalsch">Falsch</div>
 

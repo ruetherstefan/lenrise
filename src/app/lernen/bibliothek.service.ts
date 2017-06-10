@@ -40,7 +40,7 @@ export class BibliothekService {
       new Vokabel("Haussperling","31 Haussperling.mp3"),
       new Vokabel("Feldsperling","32 Feldsperling.mp3"),
       new Vokabel("Buchfink","33 Buchfink.mp3"),
-      new Vokabel("Grünfiunk","34 Grünfiunk.mp3"),
+      new Vokabel("Grünfink","34 Grünfiunk.mp3"),
       new Vokabel("Bluthänfling","35 Bluthänfling.mp3"),
       new Vokabel("Gimpel","36 Gimpel.mp3"),
       new Vokabel("Stieglitz","37 Stieglitz.mp3"),

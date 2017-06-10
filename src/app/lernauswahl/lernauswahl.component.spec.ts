@@ -2,12 +2,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { LocalStorageService } from 'angular-2-local-storage';
-import {LocalStorageServiceStub} from '../persistence/gehirn.service.spec'
 
 import { LernauswahlComponent } from './lernauswahl.component';
 import {BibliothekService} from '../lernen/bibliothek.service'
 import {GehirnService} from '../persistence/gehirn.service'
+import {LocalStorageServiceStub} from '../persistence/gehirn.service.spec'
 
 describe('LernauswahlComponent', () => {
   let component: LernauswahlComponent;
@@ -17,6 +18,7 @@ describe('LernauswahlComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ LernauswahlComponent ],
       providers: [BibliothekService, GehirnService, 
+      { provide: Router, useClass: RouterStub },
       {provide: LocalStorageService, useClass: LocalStorageServiceStub }]
     })
     .compileComponents();
@@ -31,4 +33,8 @@ describe('LernauswahlComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  class RouterStub {
+    navigateByUrl(url: string) { return url; }
+  }
 });

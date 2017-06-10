@@ -3,8 +3,9 @@ import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing'
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { LocalStorageService } from 'angular-2-local-storage';
+import {Observable} from 'rxjs/Rx';
 
 import {LernenComponent } from './lernen.component';
 import {Vokabel, BibliothekService} from './bibliothek.service'
@@ -23,8 +24,12 @@ describe('LernenComponent', () => {
       imports: [ FormsModule ],
       providers: [BibliothekService,
                   GehirnService, 
-      {provide: LocalStorageService, useClass: LocalStorageServiceStub },
-      { provide: Router, useClass: RouterStub }
+        {provide: LocalStorageService, useClass: LocalStorageServiceStub },
+        { provide: Router, useClass: RouterStub },
+        {provide: ActivatedRoute, useValue: {
+            params: Observable.of({vokabeln: 'Blaumeise'})
+          }
+        }
       ]
     })
     .compileComponents();

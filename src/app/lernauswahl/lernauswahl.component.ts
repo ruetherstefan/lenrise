@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 
-import {Vokabel, BibliothekService} from '../lernen/bibliothek.service';
-import {Erinnerung} from '../persistence/gehirn.service'
+import {Vokabel, Erinnerung, BibliothekService} from '../lernen/bibliothek.service';
 import {GehirnService} from '../persistence/gehirn.service'
 
 @Component({
@@ -14,16 +13,11 @@ export class LernauswahlComponent implements OnInit {
 
   private vokabeln : Vokabel[];
 
-  constructor(private router: Router,
-              private bibliothekService : BibliothekService, 
+  constructor(private router: Router, 
               private gehirnService : GehirnService) { }
 
   ngOnInit() {
-    this.vokabeln = this.bibliothekService.gibVoegel();
-
-    for(let vokabel of this.vokabeln){
-      vokabel.erinnerung = this.gehirnService.ladeErinnerung(vokabel.name)
-    }
+    this.vokabeln = this.gehirnService.gibVoegelMitErinnerung();
   }
 
   auswaehlen(vokabel: Vokabel) {

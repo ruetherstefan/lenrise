@@ -6,12 +6,6 @@ export class VokabelboxService {
 
   constructor(private bibliothekService : BibliothekService) { }
 
-  erstelleLernplanAnzahl(anzahlVokabeln : number) : Lernplan {
-    let zu_lernende_vokabeln : Vokabel [] = this.sucheZuLernendeVokabeln(anzahlVokabeln);
-    
-    return this.erstelleLernplan(zu_lernende_vokabeln);
-  }
-
   erstelleLernplan(zu_lernende_vokabeln : Vokabel[]) : Lernplan {
     let anzahlVokabeln : number = zu_lernende_vokabeln.length;
 
@@ -37,6 +31,12 @@ export class VokabelboxService {
     }
 
     return lernplan;
+  }
+
+  erstelleLernplanAnzahl(anzahlVokabeln : number) : Lernplan {
+    let zu_lernende_vokabeln : Vokabel [] = this.sucheZuLernendeVokabeln(anzahlVokabeln);
+    
+    return this.erstelleLernplan(zu_lernende_vokabeln);
   }
 
   sucheZuLernendeVokabeln(anzahlVokabeln : number) : Vokabel [] {

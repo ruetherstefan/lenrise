@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import {Erinnerung, Lernstufe} from '../persistence/gehirn.service'
-
 
 @Injectable()
 export class BibliothekService {
@@ -273,4 +271,26 @@ constructor(name : string, pfad : string) {
     return Lernstufe.Halb == this.erinnerung.lernstufe; 
   }
 
+}
+
+export class Erinnerung {
+
+  lernstufe : Lernstufe = Lernstufe.Halb;
+  anzahl_richtiger_wiederholungen = 1;
+
+  constructor(public vokabelname : string, public letze_wiederholung : Date){}
+  
+  static parse(object) : Erinnerung{
+    let erinnerung : Erinnerung = new Erinnerung(object.vokabelname, object.letze_wiederholung);
+    erinnerung.lernstufe = object.lernstufe;
+    erinnerung.anzahl_richtiger_wiederholungen = object.anzahl_richtiger_wiederholungen;
+
+    return erinnerung;
+  }
+
+}
+
+export enum Lernstufe {
+  Halb,
+  Ganz
 }

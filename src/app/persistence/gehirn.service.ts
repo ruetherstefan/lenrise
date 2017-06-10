@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';
 
 import {Lernplan, Lerneinheit} from '../lernen/vokabelbox.service'
-import {Vokabel} from '../lernen/bibliothek.service'
+import {Vokabel, Erinnerung, Lernstufe, BibliothekService} from '../lernen/bibliothek.service'
 
 @Injectable()
 export class GehirnService {
 
-  constructor(private localStorageService: LocalStorageService) {}
+  constructor(private localStorageService: LocalStorageService, 
+              private bibliothekService : BibliothekService) {}
 
   speichereLernen(lernplan : Lernplan){
 
@@ -33,26 +34,13 @@ export class GehirnService {
     return null;
   }
 
-}
+  gibVoegelMitErinnerung() : Vokabel[]{
+    let vokabeln : Vokabel[] = this.bibliothekService.gibVoegel();
 
-export class Erinnerung {
-
-  lernstufe : Lernstufe = Lernstufe.Halb;
-  anzahl_richtiger_wiederholungen = 1;
-
-  constructor(public vokabelname : string, public letze_wiederholung : Date){}
-  
-  static parse(object) : Erinnerung{
-    let erinnerung : Erinnerung = new Erinnerung(object.vokabelname, object.letze_wiederholung);
-    erinnerung.lernstufe = object.lernstufe;
-    erinnerung.anzahl_richtiger_wiederholungen = object.anzahl_richtiger_wiederholungen;
-
-    return erinnerung;
+    for(let vokabel of vokabeln){
+      vokabel.erinnerung = this.ladeErinnerung(vokabel.name)
+    }
+    return vokabeln;
   }
 
-}
-
-export enum Lernstufe {
-  Halb,
-  Ganz
 }

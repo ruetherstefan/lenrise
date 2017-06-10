@@ -3,14 +3,14 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 
-import { GehirnService, Erinnerung, Lernstufe } from './gehirn.service';
+import { GehirnService} from './gehirn.service';
 import {Lernplan, Lerneinheit, Lernart} from '../lernen/vokabelbox.service'
-import {Vokabel} from '../lernen/bibliothek.service'
+import {Vokabel, Erinnerung, Lernstufe, BibliothekService } from '../lernen/bibliothek.service'
 
 describe('GehirnService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [GehirnService,
+      providers: [GehirnService, BibliothekService,
         {provide: LocalStorageService, useClass: LocalStorageServiceStub }],
       imports: []
     });

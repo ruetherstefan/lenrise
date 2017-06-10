@@ -12,12 +12,16 @@ export class GehirnService {
   speichereLernen(lernplan : Lernplan){
 
     for(let vokabel of lernplan.enthalteneVokabeln()){
-      let erinnerung : Erinnerung = new Erinnerung(vokabel.name, new Date());
+      let erinnerung = this.ladeErinnerung(vokabel.name);
+
+      if(null == erinnerung){
+        erinnerung = new Erinnerung(vokabel.name, new Date());
+      }else{
+        erinnerung.lernstufe = Lernstufe.Ganz;
+      }
       
       this.localStorageService.set(vokabel.name, erinnerung);
     }
-
-    //console.log(Erinnerung.parse(this.localStorageService.get("erinnerungen")));
   }
 
   ladeErinnerung(name : string) : Erinnerung{
@@ -40,6 +44,8 @@ export class Erinnerung {
   
   static parse(object) : Erinnerung{
     let erinnerung : Erinnerung = new Erinnerung(object.vokabelname, object.letze_wiederholung);
+    erinnerung.lernstufe = object.lernstufe;
+    erinnerung.anzahl_richtiger_wiederholungen = object.anzahl_richtiger_wiederholungen;
 
     return erinnerung;
   }

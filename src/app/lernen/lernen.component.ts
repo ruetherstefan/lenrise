@@ -88,6 +88,7 @@ export class LernenComponent implements OnInit {
     }
     this.aktuelle_lerneinheit += 1;
     if(this.aktuelle_lerneinheit >= this.lernplan.einheiten.length){
+        this.audio.pause();
         this.gehirnService.speichereLernen(this.lernplan);
         this.router.navigateByUrl("/");
         return;

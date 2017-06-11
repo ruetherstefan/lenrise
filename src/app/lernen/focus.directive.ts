@@ -9,7 +9,6 @@ export class FocusDirective {
 
     ngOnInit(): void {
       this.elementRef.nativeElement.focus();
-      console.log("len-Fokus...cool")
     }    
     
 }

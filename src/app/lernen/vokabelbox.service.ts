@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
-import {Vokabel, BibliothekService} from './bibliothek.service';
+import {Vokabel, BibliothekService, Lernstufe} from './bibliothek.service';
 
 @Injectable()
 export class VokabelboxService {
 
   constructor(private bibliothekService : BibliothekService) { }
+
+/* 
+  Lernen
+*/
 
   erstelleLernplan(zu_lernende_vokabeln : Vokabel[]) : Lernplan {
     let anzahlVokabeln : number = zu_lernende_vokabeln.length;
@@ -49,7 +53,30 @@ export class VokabelboxService {
     return zu_lernende_vokabeln;
   }
 
+  /*
+    Wiederholen
+  */
+
+  berechneWiederholungen(vokabeln : Vokabel[]) : number {
+    let anzahl_wiederholungen : number = vokabeln.filter(vokabel => null != vokabel.erinnerung)
+            .filter(vokabel => Lernstufe.Ganz == vokabel.erinnerung.lernstufe)
+            .filter(function(vokabel) {
+              let vergangeneTage : number = (new Date().getTime() - vokabel.erinnerung.letze_wiederholung.getTime()) / 1000 / 60 / 60 / 24;
+              let anzahlTageBisWiederholung = Math.floor(Math.pow(1.5,vokabel.erinnerung.anzahl_richtiger_wiederholungen));
+              return anzahlTageBisWiederholung <= vergangeneTage; 
+            }) 
+            .length;
+      
+      return anzahl_wiederholungen;
+  }
+
 }
+
+
+
+
+
+
 
 export class Lernplan {
   public einheiten : Lerneinheit[] = [];

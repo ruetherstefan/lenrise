@@ -221,7 +221,7 @@ export class Erinnerung {
   constructor(public vokabelname : string, public letze_wiederholung : Date){}
   
   static parse(object) : Erinnerung{
-    let erinnerung : Erinnerung = new Erinnerung(object.vokabelname, object.letze_wiederholung);
+    let erinnerung : Erinnerung = new Erinnerung(object.vokabelname,  new Date(object.letze_wiederholung));
     erinnerung.lernstufe = object.lernstufe;
     erinnerung.anzahl_richtiger_wiederholungen = object.anzahl_richtiger_wiederholungen;
 

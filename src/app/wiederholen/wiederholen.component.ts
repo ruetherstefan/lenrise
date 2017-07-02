@@ -66,21 +66,21 @@ export class WiederholenComponent implements OnInit {
       if(this.vokabel_eingabe == this.gibAktuelleVokabel().name){
         this.warRichtig = true;
         setTimeout(() => {this.warRichtig = false}, 2000);
-        
+        this.gehirnService.speichereWiederholen(this.gibAktuelleLerneinheit().vokabel, true);
+
       }else{
         this.warFalsch = true;
         setTimeout(() => {this.warFalsch = false}, 2000);
-        
-        this.lernplan.einheiten = this.lernplan.einheiten.concat(this.gibAktuelleLerneinheit());
+
         let aktuelle_lerneinheit_zum_anschauen : Lerneinheit =  new Lerneinheit(this.gibAktuelleLerneinheit().vokabel, Lernart.Anschauen)
         this.lernplan.einheiten.splice(this.aktuelle_lerneinheit + 1, 0, aktuelle_lerneinheit_zum_anschauen);
-      }
+        this.gehirnService.speichereWiederholen(this.gibAktuelleLerneinheit().vokabel, false);
+    }
 
     }
     this.aktuelle_lerneinheit += 1;
     if(this.aktuelle_lerneinheit >= this.lernplan.einheiten.length){
         this.audio.pause();
-        this.gehirnService.speichereLernen(this.lernplan);
         this.router.navigateByUrl("/");
         return;
     }

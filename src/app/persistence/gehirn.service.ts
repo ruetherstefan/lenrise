@@ -25,6 +25,19 @@ export class GehirnService {
     }
   }
 
+  speichereWiederholen(vokabel : Vokabel, richtig : boolean){
+    let erinnerung = this.ladeErinnerung(vokabel.name);
+
+    if(richtig){
+      erinnerung.anzahl_richtiger_wiederholungen += 1;
+    }else{
+      erinnerung.anzahl_richtiger_wiederholungen = 1;
+    }
+    erinnerung.letze_wiederholung = new Date();
+
+    this.localStorageService.set(vokabel.name, erinnerung);
+  }
+
   ladeErinnerung(name : string) : Erinnerung{
     let loaded = this.localStorageService.get(name);
     if(undefined != loaded){

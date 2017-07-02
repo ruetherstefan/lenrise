@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Vokabel, BibliothekService, Lernstufe} from './bibliothek.service';
+import {ArrayService} from '../util/array.service';
 
 @Injectable()
 export class VokabelboxService {
 
-  constructor(private bibliothekService : BibliothekService) { }
+  constructor(private bibliothekService : BibliothekService,
+              private arrayService : ArrayService) { }
 
 /* 
   Lernen
@@ -37,6 +39,17 @@ export class VokabelboxService {
     return lernplan;
   }
 
+  erstelleWiederholenplan(zu_wiederholende_vokabeln) : Lernplan {
+    let lernplan : Lernplan = new Lernplan();
+
+    this.arrayService.shuffle(zu_wiederholende_vokabeln);
+    zu_wiederholende_vokabeln.forEach(vokabel => {
+      lernplan.einheiten = lernplan.einheiten.concat(new Lerneinheit(vokabel , Lernart.Wiederholen));
+    });
+
+    return lernplan;
+  }
+
   erstelleLernplanAnzahl(anzahlVokabeln : number) : Lernplan {
     let zu_lernende_vokabeln : Vokabel [] = this.sucheZuLernendeVokabeln(anzahlVokabeln);
     
@@ -57,17 +70,18 @@ export class VokabelboxService {
     Wiederholen
   */
 
-  berechneWiederholungen(vokabeln : Vokabel[]) : number {
-    let anzahl_wiederholungen : number = vokabeln.filter(vokabel => null != vokabel.erinnerung)
+  berechneVokabelnZumWiederholen(vokabeln : Vokabel[]) : Vokabel[] {
+    return vokabeln.filter(vokabel => null != vokabel.erinnerung)
             .filter(vokabel => Lernstufe.Ganz == vokabel.erinnerung.lernstufe)
             .filter(function(vokabel) {
               let vergangeneTage : number = (new Date().getTime() - vokabel.erinnerung.letze_wiederholung.getTime()) / 1000 / 60 / 60 / 24;
               let anzahlTageBisWiederholung = Math.floor(Math.pow(1.5,vokabel.erinnerung.anzahl_richtiger_wiederholungen));
               return anzahlTageBisWiederholung <= vergangeneTage; 
-            }) 
-            .length;
-      
-      return anzahl_wiederholungen;
+      }) 
+  }
+
+  berechneWiederholungen(vokabeln : Vokabel[]) : number {
+      return this.berechneVokabelnZumWiederholen(vokabeln).length;
   }
 
 }

@@ -15,6 +15,7 @@ import { LernauswahlComponent } from './lernauswahl/lernauswahl.component';
 import {GehirnService} from './persistence/gehirn.service';
 import { FocusDirective } from './lernen/focus.directive';
 import { WiederholenComponent } from './wiederholen/wiederholen.component'
+import {ArrayService} from './util/array.service';
 
 const appRoutes: Routes = [
   { path: 'lernen/:vokabeln', component: LernenComponent},
@@ -42,7 +43,7 @@ const appRoutes: Routes = [
             storageType: 'localStorage'
         })
   ],
-  providers: [BibliothekService, GehirnService],
+  providers: [BibliothekService, GehirnService, ArrayService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -41,6 +41,7 @@ export class LernenComponent implements OnInit {
 
       this.audio = new Audio();
       this.spieleAktuelleVokabel();
+      this.audio.play();
     });
 
     
@@ -96,20 +97,27 @@ export class LernenComponent implements OnInit {
 
     this.vokabel_eingabe = "";
     this.spieleAktuelleVokabel();
+    
+    setTimeout(() => {
+      this.audio.play();
+    }, 1500);
+  }
+
+  springe() {
+    this.spieleAktuelleVokabel();
+    this.audio.play();
   }
 
   spieleAktuelleVokabel() {
     this.audio.src = this.gibAktuelleLerneinheit().vokabel.adresse();
     this.audio.load();
     this.audio.loop = true;
-    this.audio.play(); 
 
     this.audio.onloadedmetadata = function() {
       let audio : HTMLAudioElement = this as HTMLAudioElement;
 
       let start_time : number = Math.floor(Math.random() * audio.duration * 2/3);
       audio.currentTime = start_time;
-
     };
   }
 
